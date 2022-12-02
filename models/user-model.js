@@ -2,22 +2,22 @@ const {Sequelize, DataTypes} = require('sequelize');
 const db = require('../database/config');
 
 const User = db.define('users',{
-    Name:{
+    name:{
         type:DataTypes.STRING
     },
-    LastName:{
-        type:DataTypes.STRING
-    },
-
-    Username:{
+    lastname:{
         type:DataTypes.STRING
     },
 
-    Password:{
+    username:{
         type:DataTypes.STRING
     },
 
-    Email:{
+    password:{
+        type:DataTypes.STRING
+    },
+
+    email:{
         type:DataTypes.STRING
     },
     age:{

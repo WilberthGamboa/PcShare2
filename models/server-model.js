@@ -11,7 +11,7 @@ class Server{
         this.app = express();
         this.port=3000;
         this.paths ={
-            auth:'/pcShare/auth',
+            auth:'/PcShare/auth',
             user:'/pcShare/user'
         }
        
@@ -42,7 +42,7 @@ class Server{
     }
     routes(){
        // this.app.use(this.usuariosPath,require('../routes/user'));
-    
+    this.app.use(this.paths.auth,require('../routes/auth-router'))
 
     }
 }
