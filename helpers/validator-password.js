@@ -1,17 +1,15 @@
-const { response, request } = require('express');
-const confirmPassword  = (value,req) =>{
 
-   if (value===undefined) {
+const confirmPassword  = (value,req) =>{
    
-    
-   }else{
-    if (value !== req.body.passwordConfirm) {
+    if (value != req.body.passwordConfirm) {
+        
         // trow error if passwords do not match
         throw new Error("Las contraseñas no coinciden");
-    } else {
-        return value;
     }
-   }
+    
+
+
+  
    
 
    
