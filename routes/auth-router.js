@@ -24,12 +24,12 @@ router.post('/register',
             return true;
         }
       }),
-
+check('email',"El correo no es valido").isEmail(),
+check('age',"La edad ingresada no es un número").isNumeric(),
+check('age','No puedes más de 3 dígitos').isLength({max:3}),
  validarCampos
- 
- 
 ]
-
 ,authRegister);
+
 
 module.exports =router;

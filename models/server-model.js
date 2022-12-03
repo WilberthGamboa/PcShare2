@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 //mis archivos
 const db = require('../database/config');
 
@@ -12,7 +13,7 @@ class Server{
         this.port=3000;
         this.paths ={
             auth:'/PcShare/auth',
-            user:'/pcShare/user'
+            computer:'/PcShare/computer'
         }
        
         this.conectarDB();
@@ -32,6 +33,10 @@ class Server{
 
     middlewares(){
     this.app.use(express.json());
+    this.app.use(fileUpload({
+        useTempFiles : true,
+        tempFileDir : '/tmp/'
+    }));
     }
 
 
@@ -42,7 +47,8 @@ class Server{
     }
     routes(){
        // this.app.use(this.usuariosPath,require('../routes/user'));
-    this.app.use(this.paths.auth,require('../routes/auth-router'))
+    this.app.use(this.paths.auth,require('../routes/auth-router'));
+    this.app.use(this.paths.computer,require('../routes/computer-router'));
 
     }
 }
