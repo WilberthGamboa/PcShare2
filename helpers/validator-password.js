@@ -1,11 +1,12 @@
 
 const confirmPassword  = (value,req) =>{
-   
-    if (value != req.body.passwordConfirm) {
-        
-        // trow error if passwords do not match
-        throw new Error("Las contraseñas no coinciden");
-    }
+const {password} = req
+    if (value !== password && value!==undefined&&password!==undefined) {
+        throw new Error('Password confirmation does not match password')
+        }else{
+            return true;
+        }
+      
     
 
 

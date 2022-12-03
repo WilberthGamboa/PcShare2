@@ -17,7 +17,7 @@ router.post('/register',
  check('username',"El campo no puede estar vacio").not().isEmpty(),
  check('username',"El campo no puede tener mas de 25 caracteres").isLength({max:25}),
  check('password',"El campo no puede estar vacio").not().isEmpty(),
- check('passwordConfirm',"El campo no puede estar vacio").bail().not().isEmpty().custom((value, { req }) => {
+ check('passwordConfirm',"El campo no puede estar vacio").bail().not().isEmpty().custom((value,  {req} ) => {
     if (value !== req.body.password && value!==undefined&&req.body.password!==undefined) {
         throw new Error('Password confirmation does not match password')
         }else{
