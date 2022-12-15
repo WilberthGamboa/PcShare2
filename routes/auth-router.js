@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
-const { authRegister } = require('../controllers/auth-controller');
+const { authRegister, authLogin } = require('../controllers/auth-controller');
 //const { confirmPassword } = require('../helpers/validator-password');
 const { validarCampos } = require('../middlewares/validationResult-middleware');
 
@@ -30,6 +30,14 @@ check('age','No puedes más de 3 dígitos').isLength({max:3}),
  validarCampos
 ]
 ,authRegister);
+
+router.post('/login',[
+
+    check('email',"El correo no es valido").not().isEmpty(),
+    check('password',"La contraseña es obligatorio").not().isEmpty(),
+    validarCampos
+
+],authLogin)
 
 
 module.exports =router;
