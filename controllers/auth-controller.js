@@ -1,4 +1,5 @@
 const bcryptjs = require('bcryptjs');
+const { generarJWT } = require('../helpers/generar-jwt');
 const User = require('../models/user-model');
 
 const authLogin= async (req,res) =>{
@@ -11,18 +12,20 @@ const authLogin= async (req,res) =>{
             msg: "Usuario no encontrado"
         })
     }
-    console.log("xd")
-console.log(usuario)
-console.log("xd")
+  
+    console.log(usuario)
+
     const validPassword = bcryptjs.compareSync( password, usuario.password );
         if ( !validPassword ) {
             return res.status(400).json({
                 msg: '- password/ Usuario / Password no son correctos '
             });
         }
-
+    //generar jwt
+    const token = await generarJWT(usuario.id);
     res.json({
-        msg:"Te has logueado"
+        msg:"Te has logueado",
+        token
     })
 
 }
