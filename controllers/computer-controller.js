@@ -13,11 +13,18 @@ const uploadComputer= async(req,res) =>{
     res.status(400).json('No files were uploaded.');
     return;
   }
-  const pathCompleto = await subirArchivo(req.files);
+
+  try {
+    const pathCompleto = await subirArchivo(req.files);
 
   res.json({
     path : pathCompleto
   })
+  } catch (msg) {
+    res.status(400).json({msg})
+    
+  }
+  
  
 }
 
