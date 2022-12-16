@@ -24,7 +24,7 @@ const Computer = db.define('computers',{
         type:DataTypes.NUMBER
     },
     urlFoto:{
-        type:DataTypes.NUMBER
+        type:DataTypes.STRING
     }
 
 

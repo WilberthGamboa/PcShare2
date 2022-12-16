@@ -9,7 +9,8 @@ const validarJWT = (req,res,next)  =>{
     }
 
     try {
-        jwt.verify(token,process.env.secretOrPrivateKey);
+        const {id} = jwt.verify(token,process.env.secretOrPrivateKey);
+        req.id = id;
         next();
     } catch (error) {
         console.log(error);

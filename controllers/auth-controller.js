@@ -13,7 +13,7 @@ const authLogin= async (req,res) =>{
         })
     }
   
-    console.log(usuario)
+  
 
     const validPassword = bcryptjs.compareSync( password, usuario.password );
         if ( !validPassword ) {
@@ -34,6 +34,25 @@ const authRegister = async (req,res) =>{
     const {name,lastname,username,password,email,age}  = req.body;
 
     const user = new User({name,lastname,username,password,email,age});
+
+    const errores=[];
+    let usuario = await User.findOne({ where: { email: email } });
+    if (usuario) {
+         errores.push( "el email ya está registrado");
+    }
+    usuario = await User.findOne({ where: { username: username } });
+    if (usuario) {
+        errores.push( "el nombre de usuario ya existe"); 
+    }
+
+    if (errores) {
+        res.status(400).json({
+            msg :errores
+        })
+        return;
+    }
+
+    
     const salt = bcryptjs.genSaltSync(10);
     user.password = bcryptjs.hashSync(password,salt);
     await user.save();
