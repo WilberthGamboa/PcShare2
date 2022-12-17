@@ -1,5 +1,6 @@
 const {Sequelize, DataTypes} = require('sequelize');
 const db = require('../database/config');
+const Computer = require('./computer-model');
 
 const User = db.define('users',{
     name:{
@@ -23,8 +24,15 @@ const User = db.define('users',{
     age:{
         type:DataTypes.NUMBER
     }
+},{
+  
+    modelName: "users",
+    timestamps: false,
 
 
+    
 });
+
+//User.Computer = User.belongsTo(Computer);
 
 module.exports=User;

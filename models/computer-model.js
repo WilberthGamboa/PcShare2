@@ -1,5 +1,6 @@
 const {Sequelize, DataTypes} = require('sequelize');
 const db = require('../database/config');
+const Computadorasdeusuarios = require('./computadorasdeusuarios-model');
 
 const Computer = db.define('computers',{
     nombre:{
@@ -26,6 +27,11 @@ const Computer = db.define('computers',{
     urlFoto:{
         type:DataTypes.STRING
     }
+},{
+    
+    modelName: "computers",
+    timestamps: false,
+
 
 
 });

@@ -35,6 +35,7 @@ router.post('/login',[
 
     check('email',"El correo no es valido").not().isEmpty(),
     check('password',"La contraseña es obligatorio").not().isEmpty(),
+   
     validarCampos
 
 ],authLogin)
