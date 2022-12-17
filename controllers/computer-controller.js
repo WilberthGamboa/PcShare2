@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { subirArchivo } = require("../helpers/subir-archivo");
 const Computadorasdeusuarios = require("../models/computadorasdeusuarios-model");
 const Computer = require("../models/computer-model");
@@ -52,10 +53,16 @@ const uploadComputer= async(req,res) =>{
 const getComputers = async(req,res) =>{
   const idUsuario=req.id;
 
-  const buscarComputadoraNombre = await Computadorasdeusuarios.findAll({
+  const buscarComputadoraNombre = await Computer.findAll({
     
-   // include: [{ model: Computer }],
-    where: { idUsuario: idUsuario } });
+   include: [{ 
+    model: Computadorasdeusuarios,
+  where:{
+    idUsuario:idUsuario
+  },
+  attributes: [],
+  }],
+    });
   
  //const datosComputadoras = await Computer.findAll({where})
   res.json({

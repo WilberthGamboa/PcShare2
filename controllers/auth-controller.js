@@ -48,10 +48,10 @@ const authRegister = async (req,res) =>{
         errores.push( "el nombre de usuario ya existe"); 
     }
 
-    if (errores) {
+    if (errores.length!=0) {
         
         return res.status(400).json({
-            msg :errores
+           errores
         })
         
     }

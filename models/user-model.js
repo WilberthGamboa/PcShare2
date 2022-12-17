@@ -27,12 +27,12 @@ const User = db.define('users',{
 },{
   
     modelName: "users",
-    timestamps: false,
+    //timestamps: false,
 
 
     
 });
 
-//User.Computer = User.belongsTo(Computer);
+
 
 module.exports=User;
