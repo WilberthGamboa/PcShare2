@@ -2,7 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 //mis archivos
 const db = require('../database/config');
-
+require('./asociations');
 
 //const { PORT } = require('../config');
 
