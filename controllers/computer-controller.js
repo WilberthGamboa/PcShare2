@@ -115,8 +115,42 @@ const deleteComputers = async (req, res) => {
   res.json(buscarComputadoraNombre);
 };
 
+const getImg = async(req,res) =>{
+
+  const idUsuario = req.id;
+  const { id } = req.params;
+  const buscarComputadoraNombre = await Computer.findOne({
+    
+    include: [
+      {
+        model: Computadorasdeusuarios,
+        where: {
+          idUsuario: idUsuario,
+        },
+        attributes: [],
+      },
+    ],
+    where:{
+      id:id
+    }
+  });
+
+
+
+  if (!buscarComputadoraNombre) {
+    return res.status(404).json({
+      msg: "No existe pc con el id" + id,
+    });
+  }
+  const {urlFoto} = buscarComputadoraNombre;
+  res.download(urlFoto);
+
+}
+
+
 module.exports = {
   uploadComputer,
   getComputers,
   deleteComputers,
+  getImg
 };
