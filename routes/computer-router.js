@@ -1,11 +1,18 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
-const { uploadComputer, getComputers, deleteComputers, getImg, postComputer } = require('../controllers/computer-controller');
+const {  getComputers, deleteComputers, getImg, postComputer, putComputer } = require('../controllers/computer-controller');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validationResult-middleware');
 
 const router = Router();
 
+router.get('/',[
+    validarJWT
+],getComputers);
+
+router.get('/download/:id',[
+    validarJWT
+],getImg)
 
 router.post('/',[
     validarJWT,
@@ -19,22 +26,13 @@ router.post('/',[
     validarCampos
 ],
 
-uploadComputer);
+postComputer);
 
-router.get('/',[
-    validarJWT
-],getComputers);
+router.put('/:id',
+[validarJWT],
 
-router.get('/download/:id',[
-    validarJWT
-],getImg)
-router.delete('/:id',[validarJWT],deleteComputers);
-
-router.post('/:id',
-[],
-
-postComputer
-
-
+putComputer
 )
+
+router.delete('/:id',[validarJWT],deleteComputers);
 module.exports =router;

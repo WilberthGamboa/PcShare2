@@ -5,16 +5,61 @@ const Computadorasdeusuarios = require("../models/computadorasdeusuarios-model")
 const Computer = require("../models/computer-model");
 const { recuperarComputer } = require('../helpers/recuperar-computer');
 
-const uploadComputer = async (req, res) => {
+const getComputers = async (req, res) => {
+  const idUsuario = req.id;
+
+  const buscarComputadoraNombre = await Computer.findAll({
+    include: [
+      {
+        model: Computadorasdeusuarios,
+        where: {
+          idUsuario: idUsuario,
+        },
+        attributes: [],
+      },
+    ],
+  });
+
+  //const datosComputadoras = await Computer.findAll({where})
+  res.json({
+    msg: buscarComputadoraNombre
+  });
+};
+
+
+const getImg = async(req,res) =>{
+  const { id } = req.params;
+  const buscarComputadoraNombre = await recuperarComputer(req,res);
+  
+  if (!buscarComputadoraNombre) {
+    return res.status(404).json({
+      msg: "No existe pc con el id " + id,
+    });
+  }
+
+  const pathFoto = path.join(__dirname,'../uploads/',buscarComputadoraNombre.urlFoto)
+  res.download(pathFoto);
+
+}
+
+const postComputer = async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
-    res.status(400).json("No files were uploaded.");
+    res.status(400).json("No se ha subido ningún archivo");
     return;
   }
   if (!req.files.archivo) {
-    res.status(400).json("No files were uploaded.");
+    res.status(400).json("No se ha subido ningún archivo");
     return;
   }
 
+  if (req.files.archivo.length>1) {
+    res.status(400).json({
+      msg: "No puedes subir más de dos archivos"
+    });
+    return;
+  }
+
+ 
   try {
     const urlFoto = await subirArchivo(req.files);
 
@@ -65,26 +110,61 @@ const uploadComputer = async (req, res) => {
   }
 };
 
-const getComputers = async (req, res) => {
-  const idUsuario = req.id;
+const putComputer = async (req,res) =>{
+  const buscarComputadoraNombre = await recuperarComputer(req,res);
+  const { id } = req.params;
+  //console.log()
+  if (!buscarComputadoraNombre) {
+    return res.status(404).json({
+      msg: "No existe pc con el id" + id,
+    });
+  }
 
-  const buscarComputadoraNombre = await Computer.findAll({
-    include: [
-      {
-        model: Computadorasdeusuarios,
-        where: {
-          idUsuario: idUsuario,
-        },
-        attributes: [],
-      },
-    ],
-  });
+  if (!req.files || Object.keys(req.files).length === 0) {
+    await buscarComputadoraNombre.update(req.body);
+    
+  
 
-  //const datosComputadoras = await Computer.findAll({where})
+ 
+  
+    
+  }else{
+    if (!req.files.archivo.length===0) {
+      /*
+      res.status(400).json("No files were uploaded.");
+      return;
+      */
+      await buscarComputadoraNombre.update(req.body);
+    }else{
+   
+      if (buscarComputadoraNombre.urlFoto) {
+        const pathImagen = path.join(__dirname,'../uploads/',buscarComputadoraNombre.urlFoto);
+        console.log(pathImagen)
+         if (fs.existsSync(pathImagen)) {
+          console.log(pathImagen)
+            fs.unlinkSync(pathImagen);
+          
+         }
+        
+      }
+  
+      const urlFoto = await subirArchivo(req.files);
+      const editComputerConFoto = [
+        ...req.body,
+        urlFoto
+      ];
+      await buscarComputadoraNombre.update(editComputerConFoto);
+    }
+    
+  }
+
   res.json({
-    msg: buscarComputadoraNombre
-  });
-};
+    msg:"Editado correctamente"
+  })
+  
+
+
+}
 
 const deleteComputers = async (req, res) => {
  
@@ -112,28 +192,14 @@ const deleteComputers = async (req, res) => {
   res.json(buscarComputadoraNombre);
 };
 
-const getImg = async(req,res) =>{
-  const { id } = req.params;
-  const buscarComputadoraNombre = await recuperarComputer(req,res);
-  
-  if (!buscarComputadoraNombre) {
-    return res.status(404).json({
-      msg: "No existe pc con el id " + id,
-    });
-  }
 
-  const pathFoto = path.join(__dirname,'../uploads/',urlFoto)
-  res.download(pathFoto);
 
-}
 
-const postComputer = (req,res) =>{
-
-}
 
 module.exports = {
-  uploadComputer,
   getComputers,
+  postComputer,
+  putComputer,
   deleteComputers,
   getImg,
   postComputer
