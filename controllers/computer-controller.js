@@ -5,6 +5,26 @@ const Computadorasdeusuarios = require("../models/computadorasdeusuarios-model")
 const Computer = require("../models/computer-model");
 const { recuperarComputer } = require('../helpers/recuperar-computer');
 
+
+const getComputer = async (req,res) =>{
+
+  
+  const buscarComputadoraNombre = await Computer.findAll({
+    include: [
+      {
+        
+        attributes: [],
+      },
+    ],
+  });
+
+  res.json({
+    msg: buscarComputadoraNombre
+  })
+
+}
+
+
 const getComputers = async (req, res) => {
   const idUsuario = req.id;
 
@@ -123,11 +143,6 @@ const putComputer = async (req,res) =>{
   if (!req.files || Object.keys(req.files).length === 0) {
     await buscarComputadoraNombre.update(req.body);
     
-  
-
- 
-  
-    
   }else{
     if (!req.files.archivo.length===0) {
       /*
@@ -149,11 +164,11 @@ const putComputer = async (req,res) =>{
       }
   
       const urlFoto = await subirArchivo(req.files);
-      const editComputerConFoto = [
-        ...req.body,
-        urlFoto
-      ];
-      await buscarComputadoraNombre.update(editComputerConFoto);
+     req.body.urlFoto = urlFoto
+     // const consultaBody = req.body;
+     //const urlFotoObj = {urlFoto};
+     
+      await buscarComputadoraNombre.update(req.body);
     }
     
   }
@@ -197,6 +212,7 @@ const deleteComputers = async (req, res) => {
 
 
 module.exports = {
+  getComputer,
   getComputers,
   postComputer,
   putComputer,
