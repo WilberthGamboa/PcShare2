@@ -7,7 +7,7 @@ const { validarCampos } = require('../middlewares/validationResult-middleware');
 
 const router = Router();
 
-
+1
 router.post('/register',
 [
  check('name',"El campo no puede estar vacio").not().isEmpty(),

@@ -1,10 +1,14 @@
- auth:'/PcShare/auth',
- computer:'/PcShare/computer'
+# API REST
 
- # Usuario 
+Api rest implementada utilizando jwt y subida de archivos
 
-Wilberth
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzgsImlhdCI6MTY3MTI1MTgxMn0.QWq4S6_4D2qTarysrfIUSJKKFOfB-SoB53JUdsiL0Jg
 
-Mildred
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzksImlhdCI6MTY3MTI1MTcxNn0.DHMo7GExE-62NnSipO3rQxUQhz0VWQ5AbRS0roKiDME
+# Tokens de prueba
+
+## Wilberth
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcxODM3MzkwfQ.70IW1Y00L8EYp5gk1EWWicca1iAfIVclpZbaPV2IGWk
+## Mildred
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjcxODM3NDE1fQ.5gLfFHF-_WF7l1mXNnQqE3yVhy-q75wZsFi7dcAqDaU
+## Renato
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjcxODM3NDYxfQ.2tHewvvSY507Tdo215Oe80QEmLbxyAQaCW-GiCpCuU4
+

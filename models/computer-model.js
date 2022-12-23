@@ -30,7 +30,7 @@ const Computer = db.define('computers',{
 },{
     
     modelName: "computers",
-    timestamps: false,
+    
 
 
 

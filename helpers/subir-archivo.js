@@ -24,7 +24,7 @@ const subirArchivo =  (files,extensionesValidas = ['png','jpg','jpeg','gif'],car
           if (err) {
            reject(err);
           }
-          resolve(uploadPath);
+          resolve(nombreTemp);
         });
 
     })
