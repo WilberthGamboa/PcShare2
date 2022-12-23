@@ -1,10 +1,15 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
-const {  getComputers, deleteComputers, getImg, postComputer, putComputer } = require('../controllers/computer-controller');
+const {  getComputers, deleteComputers, getImg, postComputer, putComputer, getComputer } = require('../controllers/computer-controller');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validationResult-middleware');
 
 const router = Router();
+router.get('/computadoras',[
+    validarJWT
+],getComputer);
+
+
 
 router.get('/',[
     validarJWT

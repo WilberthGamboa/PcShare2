@@ -9,14 +9,7 @@ const { recuperarComputer } = require('../helpers/recuperar-computer');
 const getComputer = async (req,res) =>{
 
   
-  const buscarComputadoraNombre = await Computer.findAll({
-    include: [
-      {
-        
-        attributes: [],
-      },
-    ],
-  });
+  const buscarComputadoraNombre = await Computer.findAll();
 
   res.json({
     msg: buscarComputadoraNombre
@@ -81,7 +74,7 @@ const postComputer = async (req, res) => {
 
  
   try {
-    const urlFoto = await subirArchivo(req.files);
+    
 
     const {
       nombre,
@@ -101,6 +94,7 @@ const postComputer = async (req, res) => {
       });
       return;
     }
+    const urlFoto = await subirArchivo(req.files);
     const computer = new Computer({
       nombre,
       procesador,
